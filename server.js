@@ -15,9 +15,9 @@ const PORT = 3002;
 io.on("connection", (socket) => {
   console.log(socket.id, "connection");
 
-  socket.on("join_room", (data) => {
-    console.log("join event", data)
-    socket.broadcast.emit("joined")
+  socket.on("join_room", (customerTel) => {
+    console.log("join event", customerTel)
+    socket.broadcast.emit("joined", customerTel)
   });
 
   socket.on("offer", (offer) => {
@@ -60,6 +60,19 @@ io.on("connection", (socket) => {
     console.log("made new CSR Lines", mapLines);
     const strLines = JSON.stringify(mapLines);
     io.emit("linesCSR", strLines);
+  })
+
+  socket.on("customer_board_updated", () => {
+    console.log("customer_board_updated  arrived")
+
+    io.emit("customer_board_updated");
+  })
+
+
+  socket.on("csr_board_updated", () => {
+    console.log("csr_board_updated  arrived")
+
+    io.emit("csr_board_updated", 'updated');
   })
 
   // socket.on("add_csr_line", (newLine) => {
