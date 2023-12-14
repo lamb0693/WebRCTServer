@@ -10,7 +10,7 @@ const io = new Server(server, {
   },
 });
 
-const PORT = 3002;
+const PORT = 8010;
 
 io.on("connection", (socket) => {
   console.log(socket.id, "connection");
